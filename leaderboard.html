@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="leaderboard.css">
+  </head>
+  <body>
+    <nav>
+        <a href="index.html">Play</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="https://github.com/Lazy-Coder-03/Snake-Game-v3">View Code</a>
+    </nav>
+    <main>
+      <h1>Leaderboard</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard"></tbody>
+      </table>
+    </main>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyD1SEjnu0iyODS9jx4_r9UMemuE5NVsEuA",
+        authDomain: "snake-game-v3.firebaseapp.com",
+        projectId: "snake-game-v3",
+        storageBucket: "snake-game-v3.appspot.com",
+        messagingSenderId: "1032752301810",
+        databaseURL:"https://snake-game-v3-default-rtdb.asia-southeast1.firebasedatabase.app",
+        appId: "1:1032752301810:web:acc947216328503ea8726b",
+        measurementId: "G-8C29NT82DS"
+      };
+      firebase.initializeApp(firebaseConfig);
+      
+      let ref = firebase.database().ref("scores");
+      ref.once("value", function(snapshot) {
+        let scores = [];
+        snapshot.forEach(function(child) {
+          scores.push(child.val());
+        });
+        
+        // sort the scores in descending order
+        scores.sort((a, b) => b.score - a.score);
+        
+        // create the leaderboard table rows
+        let leaderboardHTML = '';
+        for (let i = 0; i < scores.length; i++) {
+          leaderboardHTML += `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${scores[i].username}</td>
+              <td>${scores[i].score}</td>
+            </tr>
+          `;
+        }
+        
+        // insert the table rows into the leaderboard table
+        document.querySelector('#leaderboard').innerHTML = leaderboardHTML;
+      });
+    </script>
+  </body>
+</html>
