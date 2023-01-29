@@ -39,7 +39,7 @@ function preload() {
 }
 
 function addUser(){
-  if (highScore > 50 && gotnewhs) {
+  if (highScore > 0 && gotnewhs) {
     // Prompt the user to enter their username
     let username = prompt("Enter your username");
     if(username==undefined) {
@@ -188,7 +188,7 @@ function draw() {
     text("Rules :", width / 30, height / 10)
     textSize(width * 1 / 27);
     textStyle(NORMAL);
-    text("1) This is a Classic game of Snake Where your goal is to score the HIGHEST in the leaderboard!!! also you can only enter the leaderboard with a score more than 50", width / 30, height / 15, width - 25, height / 4)
+    text("1) This is a Classic game of Snake Where your goal is to score the HIGHEST in the leaderboard!!!", width / 30, height / 15, width - 25, height / 4)
     text("2) You will lose the game if you run into yourself or run into the wall when Wall option is toggled", width / 30, height / 5, width - 25, height / 4)
     text("3) You can only toggle the grid and wall option when the game is not running, the music and sounds can be toggled any time", width / 30, height / 3, width - 25, height / 4)
     textSize(width * 1 / 10);
